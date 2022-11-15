@@ -72,26 +72,27 @@ if __name__ == '__main__':
     opcao = Opcao()
     opcoes_db = Opcao_db()
 
-    start_date = date(2020, 7, 2)  # initial date available at b3 page. Use this one
-    #start_date = date(2022, 10, 10)  # initial date test.
+    #start_date = date(2020, 7, 2)  # initial date available at b3 page. Use this one
+    start_date = date(2022, 10, 10)  # initial date test.
     dt = date.today()
     end_date = date(dt.year, dt.month, dt.day)-timedelta(days=1)
 
     if not opcoes_db.retrieve_last_data(start_date):  # Populate de db starting from the first date available in B3
         for single_date in opcao.daterange(start_date, end_date):
             date = single_date
-            print(date)
+            #print(date)
             opcao.call_put('PETROLEO BRASILEIRO S.A. PETROBRAS', 'CALL', date)
             opcao.call_put('PETROLEO BRASILEIRO S.A. PETROBRAS', 'PUT', date)
-    # print(opcoes_db.retrive_last_data())
+            logging.info(f'Date: {date}')
 
     elif opcoes_db.retrieve_last_data(end_date):
         #print('The data already exists')
         logging.info(f'The data of the day {end_date} already exists')
-    else:  # tem que verificar se a B3 lança dados do dia anterior em feriados # save the data of yesterday
-        print(end_date)
+    else:
+        #print(end_date)
         opcao.call_put('PETROLEO BRASILEIRO S.A. PETROBRAS', 'CALL', end_date)
         opcao.call_put('PETROLEO BRASILEIRO S.A. PETROBRAS', 'PUT', end_date)
+        logging.info(f'Last day available: {end_date}')
 
 
 #-------------------company list if you want to change the name. It's needed to put the name equals to the list.  -----------------------------------
