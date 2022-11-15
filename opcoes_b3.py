@@ -24,7 +24,6 @@ class Opcao():
     def getting_url(self, company, date):
         try:
             date = date.strftime("%d/%m/%Y") # changing the format to match with the url
-            #url = f'https://www.b3.com.br/pt_br/market-data-e-indices/servicos-de-dados/market-data/consultas/mercado-a-vista/opcoes/posicoes-em-aberto/posicoes-em-aberto-8AE490C877D179740177DEC0BF4C5BD2.htm?empresaEmissora=PETROLEO%20BRASILEIRO%20S.A.%20PETROBRAS&data={date}&f=0'
             url = f'https://www.b3.com.br/pt_br/market-data-e-indices/servicos-de-dados/market-data/consultas/mercado-a-vista/opcoes/posicoes-em-aberto/posicoes-em-aberto-8AE490C877D179740177DEC0BF4C5BD2.htm?empresaEmissora={company}&data={date}&f=0'
             options = webdriver.ChromeOptions()
             options.add_argument('--headless')  # To does not open the browser options=options
@@ -73,11 +72,10 @@ if __name__ == '__main__':
     opcao = Opcao()
     opcoes_db = Opcao_db()
 
-    # start_date = date(2020, 7, 2)  # initial date available at b3 page. Use this one
-    start_date = date(2022, 10, 10)  # initial date test.
+    start_date = date(2020, 7, 2)  # initial date available at b3 page. Use this one
+    #start_date = date(2022, 10, 10)  # initial date test.
     dt = date.today()
-    end_date = date(dt.year, dt.month, dt.day)- timedelta(days=1)
-    #yesterday_str = date(dt.year, dt.month, dt.day) - timedelta(days=1)
+    end_date = date(dt.year, dt.month, dt.day)-timedelta(days=1)
 
     if not opcoes_db.retrieve_last_data(start_date):  # Populate de db starting from the first date available in B3
         for single_date in opcao.daterange(start_date, end_date):
