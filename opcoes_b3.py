@@ -72,8 +72,8 @@ if __name__ == '__main__':
     opcao = Opcao()
     opcoes_db = Opcao_db()
 
-    #start_date = date(2020, 7, 2)  # initial date available at b3 page. Use this one
-    start_date = date(2022, 10, 10)  # initial date test.
+    start_date = date(2020, 7, 2)  # initial date available at b3 page. Use this one
+    #start_date = date(2022, 10, 10)  # initial date test.
     dt = date.today()
     end_date = date(dt.year, dt.month, dt.day)-timedelta(days=1)
 
